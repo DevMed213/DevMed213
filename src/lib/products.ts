@@ -3,6 +3,7 @@ import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { Product } from "@/lib/catalog";
 import { readCollection, syncCollection } from "@/lib/firestore-store";
+import seed from "../../data/products.json";
 
 const filePath = path.join(process.cwd(), "data", "products.json");
 
@@ -30,19 +31,19 @@ async function readLocalProducts(): Promise<Product[]> {
   }
 }
 
+export const seedProducts: Product[] = (seed as Partial<Product>[]).map(normalize);
+
 export async function readProducts(): Promise<Product[]> {
   const local = await readLocalProducts();
+  // Firestore uses network IO. Next.js rejects that while prerendering pages.
+  if (process.env.NEXT_PHASE === "phase-production-build") return local.length > 0 ? local : seedProducts;
   try {
     const remote = (await readCollection<Partial<Product>>("products")).map(normalize);
-    if (remote.length === 0 && local.length > 0) {
-      await syncCollection("products", local);
-      return local;
-    }
     if (remote.length > 0) return remote;
   } catch (error) {
     console.error("Firestore produits indisponible.", error);
   }
-  return local;
+  return local.length > 0 ? local : seedProducts;
 }
 
 export async function readPublicProducts() {

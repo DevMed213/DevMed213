@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Syne } from "next/font/google";
+import { Suspense } from "react";
 import { FirebaseAnalytics } from "@/components/firebase-analytics";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
@@ -39,7 +40,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col">
         <FirebaseAnalytics />
-        <Header />
+        <Suspense fallback={<div className="fixed inset-x-0 top-0 z-50 h-16 border-b border-white/10 bg-black md:h-[4.5rem]" />}>
+          <Header />
+        </Suspense>
         <main className="flex-1 pt-16 md:pt-[4.5rem]">{children}</main>
         <Footer />
       </body>

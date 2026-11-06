@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { ButtonLink, Container, Eyebrow } from "@/components/ui";
 import { formatPrice } from "@/lib/catalog";
-import { readPublicProducts } from "@/lib/products";
+import { readPublicProducts, seedProducts } from "@/lib/products";
 
-export async function generateStaticParams() {
-  const products = await readPublicProducts();
-  return products.map((product) => ({ slug: product.slug }));
+export function generateStaticParams() {
+  return seedProducts.filter((product) => product.active).map((product) => ({ slug: product.slug }));
 }
 
 export async function generateMetadata({
@@ -16,13 +16,20 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const products = await readPublicProducts();
-  const product = products.find((item) => item.slug === slug);
+  const product = seedProducts.find((item) => item.slug === slug);
   if (!product) return { title: "Logiciel" };
   return { title: product.name, description: product.summary };
 }
 
-export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+export default function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+  return (
+    <Suspense fallback={<Container className="py-16 text-sm text-white/50 md:py-24">Chargement du logiciel…</Container>}>
+      <ProductDetails params={params} />
+    </Suspense>
+  );
+}
+
+async function ProductDetails({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const products = await readPublicProducts();
   const product = products.find((item) => item.slug === slug);
