@@ -3,6 +3,7 @@ import { FaqList } from "@/components/faq-list";
 import { Hero } from "@/components/hero";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, Container, Eyebrow } from "@/components/ui";
+import { ProductPhoto } from "@/components/product-photo";
 import { formatPrice, services } from "@/lib/catalog";
 import { readPublicProducts } from "@/lib/products";
 import { steps } from "@/lib/site";
@@ -13,7 +14,7 @@ export default async function Home() {
     <>
       <Hero />
 
-      <section className="border-b border-white/10 bg-paper text-black">
+      <section className="border-b border-black/10 bg-white text-black">
         <Container className="grid gap-10 py-20 md:grid-cols-12 md:py-28">
           <Reveal className="md:col-span-4">
             <Eyebrow light>01 — Services</Eyebrow>
@@ -41,7 +42,7 @@ export default async function Home() {
         </Container>
       </section>
 
-      <section className="border-b border-white/10">
+      <section className="border-b border-black/10">
         <Container className="py-20 md:py-28">
           <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
@@ -54,14 +55,17 @@ export default async function Home() {
               Tout le catalogue
             </ButtonLink>
           </Reveal>
-          <div className="mt-12 grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {products.map((product, index) => (
-              <Reveal key={product.slug} delay={index * 0.05} className="bg-black">
-                <Link href={`/logiciels/${product.slug}`} className="flex h-full flex-col p-6 transition-colors hover:bg-white hover:text-black">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-current/50">{product.category}</span>
-                  <span className="mt-6 font-display text-3xl font-semibold tracking-tight">{product.name}</span>
-                  <span className="mt-3 flex-1 text-sm leading-relaxed text-current/65">{product.summary}</span>
-                  <span className="mt-8 text-sm">À partir de {formatPrice(product.price)}</span>
+              <Reveal key={product.slug} delay={index * 0.05}>
+                <Link href={`/logiciels/${product.slug}`} className="flex h-full flex-col border border-black/10 bg-white transition-colors hover:border-black">
+                  <ProductPhoto src={product.image} alt="" className="aspect-[16/10] w-full" />
+                  <span className="flex flex-1 flex-col p-6">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-black/45">{product.category}</span>
+                    <span className="mt-4 font-display text-3xl font-semibold tracking-tight">{product.name}</span>
+                    <span className="mt-3 flex-1 text-sm leading-relaxed text-black/60">{product.summary}</span>
+                    <span className="mt-8 text-sm">À partir de {formatPrice(product.price)}</span>
+                  </span>
                 </Link>
               </Reveal>
             ))}
@@ -69,7 +73,7 @@ export default async function Home() {
         </Container>
       </section>
 
-      <section className="border-b border-white/10">
+      <section className="border-b border-black/10">
         <Container className="py-20 md:py-28">
           <Reveal>
             <Eyebrow>03 — Déroulement</Eyebrow>
@@ -77,12 +81,12 @@ export default async function Home() {
               De la commande à la livraison.
             </h2>
           </Reveal>
-          <ol className="mt-12 grid gap-px bg-white/10 md:grid-cols-5">
+          <ol className="mt-12 grid gap-4 md:grid-cols-5">
             {steps.map((step) => (
-              <li key={step.n} className="bg-black p-5">
-                <span className="font-mono text-xs text-white/40">{step.n}</span>
+              <li key={step.n} className="border border-black/10 bg-white p-5">
+                <span className="font-mono text-xs text-black/40">{step.n}</span>
                 <h3 className="mt-6 font-display text-2xl font-semibold">{step.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/55">{step.text}</p>
+                <p className="mt-3 text-sm leading-relaxed text-black/55">{step.text}</p>
               </li>
             ))}
           </ol>
@@ -101,7 +105,7 @@ export default async function Home() {
         </Container>
       </section>
 
-      <section className="border-t border-white/10">
+      <section className="border-t border-black/10">
         <Container className="flex flex-col items-start justify-between gap-8 py-20 md:flex-row md:items-end md:py-24">
           <h2 className="max-w-xl font-display text-4xl font-semibold leading-none tracking-tight md:text-6xl">
             Décrivez le projet. Nous revenons vers vous.

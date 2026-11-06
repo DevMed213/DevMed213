@@ -17,7 +17,7 @@ export default function AdminPage() {
       <Eyebrow>Interne</Eyebrow>
       <h1 className="mt-4 font-display text-5xl font-semibold tracking-tight">Administration</h1>
       <div className="mt-10">
-        <Suspense fallback={<p className="text-sm text-white/50">Chargement…</p>}>
+        <Suspense fallback={<p className="text-sm text-black/50">Chargement…</p>}>
           <AdminGate />
         </Suspense>
       </div>
@@ -29,7 +29,7 @@ async function AdminGate() {
   if (!(await isAdmin())) {
     return (
       <div>
-        <p className="mb-6 max-w-md text-sm text-white/55">
+        <p className="mb-6 max-w-md text-sm text-black/55">
           Commandes reçues et catalogue de logiciels.
         </p>
         <AdminLogin />

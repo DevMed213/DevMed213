@@ -17,16 +17,16 @@ export default function ContactPage() {
         <h1 className="mt-4 font-display text-5xl font-semibold leading-[0.95] tracking-tight md:text-6xl">
           Écrivez-nous.
         </h1>
-        <p className="mt-6 text-white/65">
+        <p className="mt-6 text-black/65">
           Une question avant de commander, ou un projet encore flou. Le message arrive au même endroit que les commandes.
         </p>
         <a href={`mailto:${site.email}`} className="mt-8 inline-block text-lg hover:underline">
           {site.email}
         </a>
-        <p className="mt-2 text-sm text-white/40">Réponse par e-mail ou téléphone.</p>
+        <p className="mt-2 text-sm text-black/40">Réponse par e-mail ou téléphone.</p>
       </div>
-      <div className="border border-white/15 p-5 md:col-span-7 md:p-8">
-        <Suspense fallback={<p className="text-sm text-white/50">Chargement du formulaire…</p>}>
+      <div className="border border-black/10 bg-white p-5 md:col-span-7 md:p-8">
+        <Suspense fallback={<p className="text-sm text-black/50">Chargement du formulaire…</p>}>
           <OrderForm mode="contact" products={[]} />
         </Suspense>
       </div>

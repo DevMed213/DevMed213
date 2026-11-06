@@ -13,6 +13,7 @@
       "Mise en ligne accompagnée"
     ],
     "forWhom": "Commerce, cabinet, artisan ou activité qui a besoin d’une présence claire.",
+    "image": "/products/vitrine-pro.jpg",
     "active": true
   },
   {
@@ -29,6 +30,7 @@
       "Espace simple pour mettre à jour les produits"
     ],
     "forWhom": "Vendeur qui veut prendre des commandes en ligne sans ouvrir un compte de paiement tout de suite.",
+    "image": "/products/boutique-express.jpg",
     "active": true
   },
   {
@@ -45,6 +47,7 @@
       "E-mail de confirmation"
     ],
     "forWhom": "Cabinet, salon, coach ou toute activité sur rendez-vous.",
+    "image": "/products/resa.jpg",
     "active": true
   },
   {
@@ -61,6 +64,7 @@
       "Export PDF"
     ],
     "forWhom": "Indépendant ou petite structure qui facture régulièrement.",
+    "image": "/products/facture-atelier.jpg",
     "active": true
   },
   {
@@ -77,6 +81,7 @@
       "Recherche rapide"
     ],
     "forWhom": "Boutique, atelier ou dépôt avec un catalogue encore maîtrisable à la main.",
+    "image": "/products/stock-leger.jpg",
     "active": true
   },
   {
@@ -93,6 +98,7 @@
       "Relances à faire"
     ],
     "forWhom": "Équipe commerciale légère ou activité qui suit des dossiers dans la durée.",
+    "image": "/products/crm-atelier.jpg",
     "active": true
   }
 ]

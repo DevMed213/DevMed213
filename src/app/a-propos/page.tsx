@@ -29,7 +29,7 @@ export default function AboutPage() {
         <h1 className="mt-4 max-w-4xl font-display text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl">
           Un studio en ligne, pour des outils concrets.
         </h1>
-        <div className="mt-10 grid gap-8 text-lg leading-relaxed text-white/70 md:grid-cols-2">
+        <div className="mt-10 grid gap-8 text-lg leading-relaxed text-black/70 md:grid-cols-2">
           <p>
             DevMed213 conçoit des sites web, des applications et des logiciels. Le 213 est l’indicatif de l’Algérie : le travail se fait à distance, avec des clients ici et ailleurs.
           </p>
@@ -38,7 +38,7 @@ export default function AboutPage() {
           </p>
         </div>
       </Container>
-      <section className="border-y border-white/10 bg-paper text-black">
+      <section className="border-y border-black/10 bg-white text-black">
         <Container className="grid gap-10 py-16 md:grid-cols-3 md:py-20">
           {principles.map((item, index) => (
             <article key={item.title}>
@@ -50,7 +50,7 @@ export default function AboutPage() {
         </Container>
       </section>
       <Container className="flex flex-col items-start justify-between gap-6 py-16 md:flex-row md:items-center">
-        <p className="max-w-lg text-white/70">Un projet en tête, ou un logiciel du catalogue à installer.</p>
+        <p className="max-w-lg text-black/70">Un projet en tête, ou un logiciel du catalogue à installer.</p>
         <div className="flex flex-wrap gap-3">
           <ButtonLink href="/commande">Passer commande</ButtonLink>
           <ButtonLink href="/contact" variant="ghost">

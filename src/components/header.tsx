@@ -18,12 +18,12 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/85 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-black/10 bg-[#f6f5f2]/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:h-[4.5rem] md:px-8">
         <Link href="/" className="flex items-center gap-3" aria-label={site.name}>
-          <Image src="/brand/mark-white.png" alt="" width={36} height={40} className="h-9 w-auto" />
+          <Image src="/brand/mark-white.png" alt="" width={36} height={40} className="h-9 w-auto invert" />
           <span className="font-display text-lg font-semibold tracking-tight">
-            DevMed<span className="text-white/45">213</span>
+            DevMed<span className="text-black/40">213</span>
           </span>
         </Link>
 
@@ -35,7 +35,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`text-sm transition-colors ${active ? "text-white" : "text-white/55 hover:text-white"}`}
+                className={`text-sm transition-colors ${active ? "text-black" : "text-black/55 hover:text-black"}`}
               >
                 {item.label}
               </Link>
@@ -46,34 +46,34 @@ export function Header() {
         <div className="flex items-center gap-3">
           <Link
             href="/commande"
-            className="hidden h-10 items-center bg-paper px-4 text-sm font-medium text-black transition-colors hover:bg-white md:inline-flex"
+            className="hidden h-10 items-center bg-black px-4 text-sm font-medium text-white transition-colors hover:bg-neutral-800 md:inline-flex"
           >
             Passer commande
           </Link>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center border border-white/20 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center border border-black/15 md:hidden"
             aria-expanded={open}
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
             onClick={() => setOpen((value) => !value)}
           >
             <span className="flex w-4 flex-col gap-1.5">
-              <span className={`h-px bg-white transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`} />
-              <span className={`h-px bg-white transition ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`} />
+              <span className={`h-px bg-black transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`} />
+              <span className={`h-px bg-black transition ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`} />
             </span>
           </button>
         </div>
       </div>
 
       {open ? (
-        <div className="border-t border-white/10 bg-black md:hidden">
+        <div className="border-t border-black/10 bg-[#f6f5f2] md:hidden">
           <nav className="flex flex-col px-5 py-4" aria-label="Navigation mobile">
             {nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="border-b border-white/10 py-4 text-lg"
+                className="border-b border-black/10 py-4 text-lg"
               >
                 {item.label}
               </Link>
@@ -81,7 +81,7 @@ export function Header() {
             <Link
               href="/commande"
               onClick={() => setOpen(false)}
-              className="mt-4 inline-flex h-12 items-center justify-center bg-paper text-sm font-medium text-black"
+              className="mt-4 inline-flex h-12 items-center justify-center bg-black text-sm font-medium text-white"
             >
               Passer commande
             </Link>

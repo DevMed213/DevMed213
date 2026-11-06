@@ -12,14 +12,13 @@ export function Container({
 
 export function Eyebrow({
   children,
-  light = false,
 }: {
   children: React.ReactNode;
   light?: boolean;
 }) {
   return (
     <p
-      className={`font-mono text-[11px] uppercase tracking-[0.28em] ${light ? "text-black/45" : "text-white/45"}`}
+      className={`font-mono text-[11px] uppercase tracking-[0.28em] text-black/45`}
     >
       {children}
     </p>
@@ -38,8 +37,8 @@ export function ButtonLink({
   className?: string;
 }) {
   const styles = {
-    solid: "bg-paper text-black hover:bg-white",
-    ghost: "border border-white/25 text-white hover:border-white hover:bg-white hover:text-black",
+    solid: "bg-black text-white hover:bg-neutral-800",
+    ghost: "border border-black/20 text-black hover:border-black hover:bg-black hover:text-white",
     dark: "bg-black text-white hover:bg-neutral-800",
   }[variant];
 

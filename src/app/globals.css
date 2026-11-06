@@ -14,20 +14,20 @@ html {
 }
 
 body {
-  background: #000;
-  color: #f4f4f1;
+  background: #f6f5f2;
+  color: #161616;
   font-family: var(--font-geist-sans), sans-serif;
 }
 
 ::selection {
-  background: #f4f4f1;
-  color: #000;
+  background: #161616;
+  color: #f6f5f2;
 }
 
 .grid-bg {
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
   background-size: 80px 80px;
   mask-image: radial-gradient(ellipse at 30% 20%, black 10%, transparent 70%);
 }

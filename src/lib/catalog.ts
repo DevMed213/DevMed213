@@ -64,6 +64,7 @@ export type Product = {
   description: string;
   includes: string[];
   forWhom: string;
+  image: string;
   active: boolean;
 };
 

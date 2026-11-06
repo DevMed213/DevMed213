@@ -8,8 +8,10 @@ import seed from "../../data/products.json";
 const filePath = path.join(process.cwd(), "data", "products.json");
 
 function normalize(item: Partial<Product>): Product {
+  const slug = String(item.slug ?? "");
+  const image = String(item.image ?? "").trim();
   return {
-    slug: String(item.slug ?? ""),
+    slug,
     name: String(item.name ?? ""),
     category: String(item.category ?? "Logiciel"),
     price: Number(item.price) || 0,
@@ -17,6 +19,7 @@ function normalize(item: Partial<Product>): Product {
     description: String(item.description ?? ""),
     includes: Array.isArray(item.includes) ? item.includes.map((line) => String(line)) : [],
     forWhom: String(item.forWhom ?? ""),
+    image: image || (slug ? `/products/${slug}.jpg` : ""),
     active: item.active !== false,
   };
 }
@@ -77,6 +80,12 @@ export async function writeProducts(products: Product[]) {
   if (!saved) throw new Error("Le catalogue n’a pas pu être enregistré.");
 }
 
+function isImageRef(image: string) {
+  if (image.startsWith("/") && !image.includes("..")) return true;
+  if (image.startsWith("https://")) return true;
+  return image.startsWith("data:image/") && image.includes(";base64,") && image.length < 700_000;
+}
+
 export function slugify(value: string) {
   return value
     .normalize("NFD")
@@ -96,6 +105,7 @@ export function parseProduct(body: unknown): { product?: Product; error?: string
   const summary = String(data.summary ?? "").trim().slice(0, 180);
   const description = String(data.description ?? "").trim().slice(0, 2000);
   const forWhom = String(data.forWhom ?? "").trim().slice(0, 240);
+  const image = String(data.image ?? "").trim().slice(0, 500);
   const price = Number(data.price);
   const includes = String(data.includes ?? "")
     .split("\n")
@@ -110,6 +120,7 @@ export function parseProduct(body: unknown): { product?: Product; error?: string
   if (summary.length < 8) return { error: "Ajoutez un résumé court." };
   if (description.length < 20) return { error: "Décrivez le logiciel." };
   if (includes.length === 0) return { error: "Ajoutez au moins un élément inclus." };
+  if (image && !isImageRef(image)) return { error: "La photo doit être un fichier image ou un lien https://." };
 
   return {
     product: {
@@ -121,6 +132,7 @@ export function parseProduct(body: unknown): { product?: Product; error?: string
       description,
       includes,
       forWhom,
+      image: image || `/products/${slug}.jpg`,
       active: data.active !== false && data.active !== "false",
     },
   };

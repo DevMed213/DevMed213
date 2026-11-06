@@ -6,7 +6,7 @@ import type { Product } from "@/lib/catalog";
 import { budgets, deadlines, kindLabels, kinds, type Kind } from "@/lib/site";
 
 const field =
-  "mt-2 w-full border border-white/15 bg-transparent px-4 text-sm outline-none transition-colors placeholder:text-white/30 focus:border-white";
+  "mt-2 w-full border border-black/15 bg-transparent px-4 text-sm outline-none transition-colors placeholder:text-black/30 focus:border-black";
 
 export function OrderForm({
   mode = "commande",
@@ -67,7 +67,7 @@ export function OrderForm({
 
       {mode === "commande" ? (
         <fieldset>
-          <legend className="text-sm text-white/70">Type de demande</legend>
+          <legend className="text-sm text-black/70">Type de demande</legend>
           <div className="mt-3 grid gap-2 sm:grid-cols-2">
             {kinds
               .filter((item) => item !== "contact")
@@ -75,7 +75,7 @@ export function OrderForm({
                 <label
                   key={item}
                   className={`flex cursor-pointer items-center gap-3 border px-4 py-3 text-sm transition-colors ${
-                    kind === item ? "border-white bg-white text-black" : "border-white/15 hover:border-white/40"
+                    kind === item ? "border-black bg-black text-white" : "border-black/15 hover:border-black/40"
                   }`}
                 >
                   <input
@@ -94,7 +94,7 @@ export function OrderForm({
 
       {kind === "produit" ? (
         <div className="grid gap-5 sm:grid-cols-2">
-          <label className="block text-sm text-white/70">
+          <label className="block text-sm text-black/70">
             Logiciel
             <select
               name="productSlug"
@@ -103,22 +103,22 @@ export function OrderForm({
               className={`${field} h-12`}
               required
             >
-              <option value="" className="bg-black">
+              <option value="" className="bg-white">
                 Choisir
               </option>
               {products.map((item) => (
-                <option key={item.slug} value={item.slug} className="bg-black">
+                <option key={item.slug} value={item.slug} className="bg-white">
                   {item.name}
                 </option>
               ))}
             </select>
           </label>
-          <label className="block text-sm text-white/70">
+          <label className="block text-sm text-black/70">
             Quantité
             <input name="quantity" type="number" min={1} max={99} defaultValue={1} className={`${field} h-12`} />
           </label>
           {selected ? (
-            <p className="text-sm text-white/50 sm:col-span-2">
+            <p className="text-sm text-black/50 sm:col-span-2">
               {selected.summary} Prix indicatif : à confirmer avec vous.
             </p>
           ) : null}
@@ -128,44 +128,44 @@ export function OrderForm({
       )}
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <label className="block text-sm text-white/70">
+        <label className="block text-sm text-black/70">
           Nom
           <input name="name" required autoComplete="name" className={`${field} h-12`} placeholder="Votre nom" />
         </label>
-        <label className="block text-sm text-white/70">
+        <label className="block text-sm text-black/70">
           Téléphone
           <input name="phone" required autoComplete="tel" className={`${field} h-12`} placeholder="05 xx xx xx xx" />
         </label>
       </div>
 
-      <label className="block text-sm text-white/70">
+      <label className="block text-sm text-black/70">
         E-mail
         <input name="email" type="email" required autoComplete="email" className={`${field} h-12`} placeholder="vous@email.com" />
       </label>
 
       {mode === "commande" ? (
         <div className="grid gap-5 sm:grid-cols-2">
-          <label className="block text-sm text-white/70">
+          <label className="block text-sm text-black/70">
             Délai souhaité
             <select name="deadline" defaultValue="" className={`${field} h-12`}>
-              <option value="" className="bg-black">
+              <option value="" className="bg-white">
                 Non précisé
               </option>
               {deadlines.map((item) => (
-                <option key={item} value={item} className="bg-black">
+                <option key={item} value={item} className="bg-white">
                   {item}
                 </option>
               ))}
             </select>
           </label>
-          <label className="block text-sm text-white/70">
+          <label className="block text-sm text-black/70">
             Budget indicatif
             <select name="budget" defaultValue="" className={`${field} h-12`}>
-              <option value="" className="bg-black">
+              <option value="" className="bg-white">
                 Non précisé
               </option>
               {budgets.map((item) => (
-                <option key={item} value={item} className="bg-black">
+                <option key={item} value={item} className="bg-white">
                   {item}
                 </option>
               ))}
@@ -179,7 +179,7 @@ export function OrderForm({
         </>
       )}
 
-      <label className="block text-sm text-white/70">
+      <label className="block text-sm text-black/70">
         {mode === "contact" ? "Message" : "Votre besoin"}
         <textarea
           name="message"
@@ -195,16 +195,16 @@ export function OrderForm({
         />
       </label>
 
-      {error ? <p className="text-sm text-red-300">{error}</p> : null}
+      {error ? <p className="text-sm text-red-700">{error}</p> : null}
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-sm text-xs leading-relaxed text-white/40">
+        <p className="max-w-sm text-xs leading-relaxed text-black/40">
           Aucun paiement n’est demandé. Nous vous contactons pour confirmer la commande.
         </p>
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex h-12 items-center justify-center bg-paper px-6 text-sm font-medium text-black transition-colors hover:bg-white disabled:opacity-60"
+          className="inline-flex h-12 items-center justify-center bg-black px-6 text-sm font-medium text-white transition-colors hover:bg-neutral-800 disabled:opacity-60"
         >
           {pending ? "Envoi…" : mode === "contact" ? "Envoyer" : "Envoyer la commande"}
         </button>
