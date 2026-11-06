@@ -105,7 +105,7 @@ export function parseProduct(body: unknown): { product?: Product; error?: string
   const summary = String(data.summary ?? "").trim().slice(0, 180);
   const description = String(data.description ?? "").trim().slice(0, 2000);
   const forWhom = String(data.forWhom ?? "").trim().slice(0, 240);
-  const image = String(data.image ?? "").trim().slice(0, 500);
+  const image = String(data.image ?? "").trim();
   const price = Number(data.price);
   const includes = String(data.includes ?? "")
     .split("\n")
@@ -120,6 +120,9 @@ export function parseProduct(body: unknown): { product?: Product; error?: string
   if (summary.length < 8) return { error: "Ajoutez un résumé court." };
   if (description.length < 20) return { error: "Décrivez le logiciel." };
   if (includes.length === 0) return { error: "Ajoutez au moins un élément inclus." };
+  if (image.startsWith("data:image/") && image.length >= 700_000) {
+    return { error: "Cette photo est trop lourde. Choisissez-en une plus petite." };
+  }
   if (image && !isImageRef(image)) return { error: "La photo doit être un fichier image ou un lien https://." };
 
   return {

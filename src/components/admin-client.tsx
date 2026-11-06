@@ -50,7 +50,7 @@ function readPhoto(file: File) {
       const source = new Image();
       source.onload = () => {
         const longest = Math.max(source.width, source.height);
-        const scale = Math.min(1, 1400 / longest);
+        const scale = Math.min(1, 1200 / longest);
         const canvas = document.createElement("canvas");
         canvas.width = Math.max(1, Math.round(source.width * scale));
         canvas.height = Math.max(1, Math.round(source.height * scale));
@@ -60,8 +60,10 @@ function readPhoto(file: File) {
           return;
         }
         context.drawImage(source, 0, 0, canvas.width, canvas.height);
-        const image = canvas.toDataURL("image/jpeg", 0.72);
-        if (image.length > 680_000) {
+        const image =
+          [0.72, 0.5, 0.35].map((quality) => canvas.toDataURL("image/jpeg", quality)).find((value) => value.length < 680_000) ??
+          "";
+        if (!image) {
           reject(new Error("Image trop lourde. Collez plutôt un lien https://."));
           return;
         }
