@@ -45,16 +45,28 @@ export async function readOrders(): Promise<Order[]> {
   }
 }
 
-export async function saveOrders(orders: Order[]) {
+async function writeLocalOrders(orders: Order[]) {
   await mkdir(path.dirname(filePath), { recursive: true });
   const temp = `${filePath}.tmp`;
   await writeFile(temp, JSON.stringify(orders, null, 2));
   await rename(temp, filePath);
+}
+
+export async function saveOrders(orders: Order[]) {
+  let saved = false;
   try {
     await syncCollection("orders", orders);
+    saved = true;
   } catch (error) {
     console.error("Envoi Firestore des commandes impossible.", error);
   }
+  try {
+    await writeLocalOrders(orders);
+    saved = true;
+  } catch (error) {
+    console.error("Enregistrement local des commandes impossible.", error);
+  }
+  if (!saved) throw new Error("La commande n’a pas pu être enregistrée.");
 }
 
 function clean(value: unknown, max: number) {

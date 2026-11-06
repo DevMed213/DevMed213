@@ -1,8 +1,9 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { isAdmin } from "@/lib/auth";
 import { parseProduct, readProducts, writeProducts } from "@/lib/products";
 
 function refresh(slugs: string[]) {
+  revalidateTag("products", { expire: 0 });
   revalidatePath("/");
   revalidatePath("/logiciels");
   revalidatePath("/commande");

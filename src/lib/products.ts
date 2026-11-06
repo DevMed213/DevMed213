@@ -1,3 +1,4 @@
+import { cacheTag } from "next/cache";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { Product } from "@/lib/catalog";
@@ -45,20 +46,34 @@ export async function readProducts(): Promise<Product[]> {
 }
 
 export async function readPublicProducts() {
+  "use cache";
+  cacheTag("products");
   const products = await readProducts();
   return products.filter((product) => product.active);
 }
 
-export async function writeProducts(products: Product[]) {
+async function writeLocalProducts(products: Product[]) {
   await mkdir(path.dirname(filePath), { recursive: true });
   const temp = `${filePath}.tmp`;
   await writeFile(temp, JSON.stringify(products, null, 2));
   await rename(temp, filePath);
+}
+
+export async function writeProducts(products: Product[]) {
+  let saved = false;
   try {
     await syncCollection("products", products);
+    saved = true;
   } catch (error) {
     console.error("Envoi Firestore des produits impossible.", error);
   }
+  try {
+    await writeLocalProducts(products);
+    saved = true;
+  } catch (error) {
+    console.error("Enregistrement local des produits impossible.", error);
+  }
+  if (!saved) throw new Error("Le catalogue n’a pas pu être enregistré.");
 }
 
 export function slugify(value: string) {
