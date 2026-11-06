@@ -37,6 +37,7 @@ yarn-error.log*
 # commandes enregistrées localement
 /data/orders.json
 /data/orders.json.tmp
+/data/products.json.tmp
 
 # vercel
 .vercel

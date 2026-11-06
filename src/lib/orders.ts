@@ -1,7 +1,8 @@
 import { randomBytes } from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { getProduct } from "@/lib/catalog";
+import { readCollection, syncCollection } from "@/lib/firestore-store";
+import { readPublicProducts } from "@/lib/products";
 import { deadlines, kinds, type Kind, budgets } from "@/lib/site";
 
 export type Order = {
@@ -21,7 +22,7 @@ export type Order = {
 
 const filePath = path.join(process.cwd(), "data", "orders.json");
 
-export async function readOrders(): Promise<Order[]> {
+async function readLocalOrders(): Promise<Order[]> {
   try {
     const raw = await readFile(filePath, "utf8");
     const parsed = JSON.parse(raw) as Order[];
@@ -31,18 +32,36 @@ export async function readOrders(): Promise<Order[]> {
   }
 }
 
+export async function readOrders(): Promise<Order[]> {
+  const local = await readLocalOrders();
+  try {
+    const remote = await readCollection<Order>("orders");
+    const merged = new Map<string, Order>();
+    for (const order of [...remote, ...local]) merged.set(order.id, order);
+    return [...merged.values()].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  } catch (error) {
+    console.error("Firestore commandes indisponible.", error);
+    return local;
+  }
+}
+
 export async function saveOrders(orders: Order[]) {
   await mkdir(path.dirname(filePath), { recursive: true });
   const temp = `${filePath}.tmp`;
   await writeFile(temp, JSON.stringify(orders, null, 2));
   await rename(temp, filePath);
+  try {
+    await syncCollection("orders", orders);
+  } catch (error) {
+    console.error("Envoi Firestore des commandes impossible.", error);
+  }
 }
 
 function clean(value: unknown, max: number) {
   return String(value ?? "").replace(/\s+/g, " ").trim().slice(0, max);
 }
 
-export function parseOrder(body: unknown): { order?: Order; error?: string } {
+export async function parseOrder(body: unknown): Promise<{ order?: Order; error?: string }> {
   if (!body || typeof body !== "object") return { error: "Demande invalide." };
   const data = body as Record<string, unknown>;
 
@@ -70,7 +89,8 @@ export function parseOrder(body: unknown): { order?: Order; error?: string } {
     return { error: "Budget invalide." };
   }
 
-  const product = productSlug ? getProduct(productSlug) : undefined;
+  const catalog = await readPublicProducts();
+  const product = productSlug ? catalog.find((item) => item.slug === productSlug) : undefined;
   if (kind === "produit" && !product) return { error: "Choisissez un logiciel du catalogue." };
   if (!Number.isInteger(quantity) || quantity < 1 || quantity > 99) {
     return { error: "Quantité invalide." };

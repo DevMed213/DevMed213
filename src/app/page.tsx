@@ -3,11 +3,12 @@ import { FaqList } from "@/components/faq-list";
 import { Hero } from "@/components/hero";
 import { Reveal } from "@/components/reveal";
 import { ButtonLink, Container, Eyebrow } from "@/components/ui";
-import { formatPrice, products } from "@/lib/catalog";
-import { services } from "@/lib/catalog";
+import { formatPrice, services } from "@/lib/catalog";
+import { readPublicProducts } from "@/lib/products";
 import { steps } from "@/lib/site";
 
-export default function Home() {
+export default async function Home() {
+  const products = (await readPublicProducts()).slice(0, 3);
   return (
     <>
       <Hero />
@@ -54,7 +55,7 @@ export default function Home() {
             </ButtonLink>
           </Reveal>
           <div className="mt-12 grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
-            {products.slice(0, 3).map((product, index) => (
+            {products.map((product, index) => (
               <Reveal key={product.slug} delay={index * 0.05} className="bg-black">
                 <Link href={`/logiciels/${product.slug}`} className="flex h-full flex-col p-6 transition-colors hover:bg-white hover:text-black">
                   <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-current/50">{product.category}</span>

@@ -2,18 +2,24 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
-import { getProduct, products } from "@/lib/catalog";
+import type { Product } from "@/lib/catalog";
 import { budgets, deadlines, kindLabels, kinds, type Kind } from "@/lib/site";
 
 const field =
   "mt-2 w-full border border-white/15 bg-transparent px-4 text-sm outline-none transition-colors placeholder:text-white/30 focus:border-white";
 
-export function OrderForm({ mode = "commande" }: { mode?: "commande" | "contact" }) {
+export function OrderForm({
+  mode = "commande",
+  products,
+}: {
+  mode?: "commande" | "contact";
+  products: Product[];
+}) {
   const router = useRouter();
   const params = useSearchParams();
   const presetKind = (mode === "contact" ? "contact" : params.get("type")) as Kind | null;
   const presetProduct = params.get("produit") ?? "";
-  const product = getProduct(presetProduct);
+  const product = products.find((item) => item.slug === presetProduct);
 
   const initialKind: Kind =
     product ? "produit" : presetKind && kinds.includes(presetKind) ? presetKind : "site";
@@ -25,7 +31,7 @@ export function OrderForm({ mode = "commande" }: { mode?: "commande" | "contact"
 
   const selected = useMemo(
     () => products.find((item) => item.slug === productSlug),
-    [productSlug],
+    [productSlug, products],
   );
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {

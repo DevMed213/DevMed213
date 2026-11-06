@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonLink, Container, Eyebrow } from "@/components/ui";
-import { formatPrice, getProduct, products } from "@/lib/catalog";
+import { formatPrice } from "@/lib/catalog";
+import { readPublicProducts } from "@/lib/products";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const products = await readPublicProducts();
   return products.map((product) => ({ slug: product.slug }));
 }
 
@@ -14,14 +16,16 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const products = await readPublicProducts();
+  const product = products.find((item) => item.slug === slug);
   if (!product) return { title: "Logiciel" };
   return { title: product.name, description: product.summary };
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const products = await readPublicProducts();
+  const product = products.find((item) => item.slug === slug);
   if (!product) notFound();
 
   const others = products.filter((item) => item.slug !== product.slug).slice(0, 3);

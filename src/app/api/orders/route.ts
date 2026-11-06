@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     return Response.json({ error: "Demande invalide." }, { status: 400 });
   }
 
-  const { order, error } = parseOrder(body);
+  const { order, error } = await parseOrder(body);
   if (!order) return Response.json({ error }, { status: 400 });
 
   const orders = await readOrders();

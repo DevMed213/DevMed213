@@ -27,7 +27,7 @@ export default function ContactPage() {
       </div>
       <div className="border border-white/15 p-5 md:col-span-7 md:p-8">
         <Suspense fallback={<p className="text-sm text-white/50">Chargement du formulaire…</p>}>
-          <OrderForm mode="contact" />
+          <OrderForm mode="contact" products={[]} />
         </Suspense>
       </div>
     </Container>

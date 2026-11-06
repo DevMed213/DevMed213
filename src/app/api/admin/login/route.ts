@@ -1,20 +1,20 @@
 import { cookies } from "next/headers";
-import { adminCookie, adminToken, passwordAccepted } from "@/lib/auth";
+import { adminCookie, adminToken, credentialsAccepted } from "@/lib/auth";
 
 export async function POST(request: Request) {
+  let username = "";
   let password = "";
   try {
-    const body = (await request.json()) as { password?: string };
+    const body = (await request.json()) as { username?: string; password?: string };
+    username = body.username ?? "";
     password = body.password ?? "";
   } catch {
+    username = "";
     password = "";
   }
 
-  if (!process.env.ADMIN_PASSWORD) {
-    return Response.json({ error: "Mot de passe admin non configuré." }, { status: 500 });
-  }
-  if (!passwordAccepted(password)) {
-    return Response.json({ error: "Mot de passe incorrect." }, { status: 401 });
+  if (!credentialsAccepted(username, password)) {
+    return Response.json({ error: "Identifiants incorrects." }, { status: 401 });
   }
 
   const jar = await cookies();

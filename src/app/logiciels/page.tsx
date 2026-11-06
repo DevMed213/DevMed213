@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Container, Eyebrow } from "@/components/ui";
-import { formatPrice, products } from "@/lib/catalog";
+import { formatPrice } from "@/lib/catalog";
+import { readPublicProducts } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Logiciels prêts",
   description: "Catalogue de logiciels prêts à installer et à ajuster, proposés par DevMed213.",
 };
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const products = await readPublicProducts();
   return (
     <Container className="py-16 md:py-24">
       <Eyebrow>Catalogue</Eyebrow>

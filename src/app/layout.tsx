@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Syne } from "next/font/google";
+import { FirebaseAnalytics } from "@/components/firebase-analytics";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { site } from "@/lib/site";
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <FirebaseAnalytics />
         <Header />
         <main className="flex-1 pt-16 md:pt-[4.5rem]">{children}</main>
         <Footer />

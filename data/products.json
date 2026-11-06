@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "vitrine-pro",
+    "name": "Vitrine Pro",
+    "category": "Site",
+    "price": 45000,
+    "summary": "Site vitrine prêt : pages, formulaire et mise en page mobile.",
+    "description": "Une base de site pour présenter une activité, des services et un moyen de contact. Nous remplaçons les textes, les images et les couleurs, puis nous mettons le site en ligne.",
+    "includes": [
+      "Pages accueil, offre, à propos et contact",
+      "Formulaire de contact",
+      "Adaptation mobile",
+      "Mise en ligne accompagnée"
+    ],
+    "forWhom": "Commerce, cabinet, artisan ou activité qui a besoin d’une présence claire.",
+    "active": true
+  },
+  {
+    "slug": "boutique-express",
+    "name": "Boutique Express",
+    "category": "Site",
+    "price": 90000,
+    "summary": "Catalogue en ligne et commandes reçues sans paiement intégré.",
+    "description": "Vos produits sont présentés avec photo, prix et fiche. Le client compose sa commande. Vous la recevez et vous confirmez le paiement et la livraison de votre côté.",
+    "includes": [
+      "Catalogue de produits",
+      "Fiches produit",
+      "Panier et envoi de commande",
+      "Espace simple pour mettre à jour les produits"
+    ],
+    "forWhom": "Vendeur qui veut prendre des commandes en ligne sans ouvrir un compte de paiement tout de suite.",
+    "active": true
+  },
+  {
+    "slug": "resa",
+    "name": "Résa",
+    "category": "Logiciel",
+    "price": 65000,
+    "summary": "Prise de rendez-vous en ligne, avec créneaux et confirmations.",
+    "description": "Vos clients choisissent un créneau. Vous voyez l’agenda, vous confirmez, et le rendez-vous est noté. Les rappels partent par e-mail.",
+    "includes": [
+      "Page de réservation",
+      "Créneaux selon vos horaires",
+      "Liste des rendez-vous",
+      "E-mail de confirmation"
+    ],
+    "forWhom": "Cabinet, salon, coach ou toute activité sur rendez-vous.",
+    "active": true
+  },
+  {
+    "slug": "facture-atelier",
+    "name": "Facture Atelier",
+    "category": "Logiciel",
+    "price": 40000,
+    "summary": "Devis et factures, clients et numérotation, export PDF.",
+    "description": "Un logiciel léger pour établir un devis, le transformer en facture et garder l’historique des clients. Les documents sortent en PDF, prêts à envoyer.",
+    "includes": [
+      "Fiches clients",
+      "Devis et factures",
+      "Numérotation",
+      "Export PDF"
+    ],
+    "forWhom": "Indépendant ou petite structure qui facture régulièrement.",
+    "active": true
+  },
+  {
+    "slug": "stock-leger",
+    "name": "Stock Léger",
+    "category": "Logiciel",
+    "price": 55000,
+    "summary": "Produits, entrées, sorties et seuil d’alerte.",
+    "description": "Vous suivez ce qui entre et ce qui sort, sans un gros logiciel de gestion. Une alerte signale les articles qui passent sous le seuil que vous fixez.",
+    "includes": [
+      "Fiches articles",
+      "Mouvements de stock",
+      "Seuil d’alerte",
+      "Recherche rapide"
+    ],
+    "forWhom": "Boutique, atelier ou dépôt avec un catalogue encore maîtrisable à la main.",
+    "active": true
+  },
+  {
+    "slug": "crm-atelier",
+    "name": "CRM Atelier",
+    "category": "Logiciel",
+    "price": 75000,
+    "summary": "Suivi des clients, des échanges et des relances.",
+    "description": "Chaque client a une fiche : coordonnées, demandes, statut et prochaine action. L’objectif est de ne plus perdre un suivi dans les messages.",
+    "includes": [
+      "Fiches clients",
+      "Historique des échanges",
+      "Statuts de suivi",
+      "Relances à faire"
+    ],
+    "forWhom": "Équipe commerciale légère ou activité qui suit des dossiers dans la durée.",
+    "active": true
+  }
+]

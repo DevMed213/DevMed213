@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { OrderForm } from "@/components/order-form";
 import { Container, Eyebrow } from "@/components/ui";
+import { readPublicProducts } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Commander",
@@ -27,9 +28,14 @@ export default function OrderPage() {
       </div>
       <div className="border border-white/15 p-5 md:col-span-7 md:p-8">
         <Suspense fallback={<p className="text-sm text-white/50">Chargement du formulaire…</p>}>
-          <OrderForm />
+          <OrderFields />
         </Suspense>
       </div>
     </Container>
   );
+}
+
+async function OrderFields() {
+  const products = await readPublicProducts();
+  return <OrderForm products={products} />;
 }

@@ -42,7 +42,7 @@ export function Footer() {
           </a>
           <p className="mt-3 text-sm text-white/45">Algérie · à distance</p>
           <Link href="/admin" className="mt-8 inline-block text-xs text-white/30 hover:text-white/70">
-            Espace commandes
+            Administration
           </Link>
         </div>
       </div>
